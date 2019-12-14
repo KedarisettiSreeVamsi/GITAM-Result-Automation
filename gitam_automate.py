@@ -9,6 +9,9 @@ from tkinter import *
 import tkinter.messagebox
 import requests,os,time
 from zipfile import ZipFile
+import platform
+import os
+from pip._internal.utils.misc import get_installed_distributions
 
 window = Tk()
 window.title('Gitam Univeristy Semester Result')
@@ -95,6 +98,21 @@ def search():
     tkinter.messagebox.showinfo('NOTE','Running Chrome to get Results.Click --OK-- to proceed.')
     tkinter.messagebox.showinfo('NOTE','Please wait while we fetch data and record it. \nIMP: Donot close CHROME during operation.')
     # Initializing webdriver with its origin
+    if 'selenium' in get_installed_distributions():
+        pass
+    else:
+        live_status.set('Installing selenium')
+        window.update()
+        time.sleep(5)
+        os.system('pip install selenium')
+    if 'requests' in get_installed_distributions():
+        pass
+    else:
+        live_status.set('Installing requests')
+        window.update()
+        time.sleep(5)
+        os.system('pip install requests')
+    
     path = 'chromedriver.exe'
     if os.path.exists(path):
         pass
@@ -102,7 +120,7 @@ def search():
         live_status.set('Downloading chromedriver for automation...')
         window.update()
         time.sleep(5)
-        r = requests.get('https://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_win32.zip')
+        r = requests.get('https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_win32.zip')
         with open('chromedriver.zip','wb') as f:
             f.write(r.content)
         live_status.set('Extracting chromedriver')
