@@ -1,3 +1,3 @@
 import os
-os.system('init.py')
-os.system('gitam_automate.py')
+os.system('python setup.py install')
+os.system('python gitam_automate.py')
